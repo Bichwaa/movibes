@@ -1,5 +1,5 @@
 <template>
-    <div class="scaffold">
+    <div class="scaffold" v-bind:style="{ 'background-image': 'url('+ makeLink(movieData.poster_path) + ')' }">
         <span class="star-rating">
             <va-icon name="star"  size="17px"/>
             <span class="rating">{{movieData.vote_average ||7.3}}</span>
@@ -10,9 +10,15 @@
  
  <script setup>
  import { ref } from "vue";
+ import { useConfigStore } from '../stores/tmdbConfig'
+
+const store = useConfigStore()
 
  const props = defineProps(['movieData'])
  const m = ref("d")
+
+ const makeLink = (link)=> store.buildBackdropImageUrl(link)
+
  </script>
  
  <style scoped>
@@ -22,6 +28,7 @@
         /* width:100px;   */
         margin:1rem .5rem;
         background-color: rgba(75, 37, 78, 0.24);  
+        background-size: contain;
         position: relative;
     }
 
