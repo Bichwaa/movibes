@@ -36,7 +36,7 @@
           <va-button class="play-btn" color="#3DD2CC66" round>Start playing</va-button>
         </div>
 
-        <va-sidebar-item>
+        <va-sidebar-item @click="logout">
           <va-sidebar-item-content>
             <va-icon name="logout"/>
             <va-sidebar-item-title>Logout</va-sidebar-item-title>
@@ -94,11 +94,15 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import wordLogo from '../assets/movibes-logo.svg';
 import ListCard from '../components/ListCard.vue';
 import SearchBar from "../components/SearchBar.vue";
 import MovieBanner from "../components/MovieBanner.vue";
 import MovieCard from '../components/MovieCard.vue';
+
+//HELPERS
+const router = useRouter()
 
 //DATA
 const minimized = ref(false)
@@ -172,6 +176,10 @@ const services = ref([
 const itemClicked = (item)=>{
   sidebarItems.value.map(x=>x.active=false);
   item.active =  true
+}
+
+const logout = ()=>{
+  return router.push({name:"register"})
 }
 </script>
 
