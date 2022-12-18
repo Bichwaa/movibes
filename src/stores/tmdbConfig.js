@@ -9,6 +9,7 @@ const moviesUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=${imp
 export const useConfigStore = defineStore('configs', () => {
   const configs = ref(0)
   const movies = ref([])
+  const currentMovie = ref({})
   const imgPath = ref("")
 
   async function getConfig() {
@@ -28,5 +29,5 @@ export const useConfigStore = defineStore('configs', () => {
     return newPath
   }
 
-  return { configs, imgPath, movies, getMovies, getConfig, buildBackdropImageUrl}
+  return { configs, imgPath, movies, currentMovie, getMovies, getConfig, buildBackdropImageUrl}
 })

@@ -20,7 +20,7 @@ const trending = ref({
   backdrop_path:"#"
 })
 
-const imgPath = ref("#")
+const imgPath = ref("http://image.tmdb.org/t/p/w1280/JvqaHXdKBtEAmm4EDVTGkoAGIj.jpg") //fallback url
 
 const getRandomInt = (max)=> {
   return Math.floor(Math.random() * max);

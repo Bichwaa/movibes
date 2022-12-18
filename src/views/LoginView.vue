@@ -12,7 +12,7 @@
   import LoginForm from "../components/subcomponents/_LoginForm.vue";
   import { useConfigStore } from '../stores/tmdbConfig'
 
-  const imgPath =  ref("")
+  const imgPath =  ref("http://image.tmdb.org/t/p/w1280/JvqaHXdKBtEAmm4EDVTGkoAGIj.jpg")
   
   onMounted(()=>{
     const store = useConfigStore();

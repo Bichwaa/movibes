@@ -1,51 +1,7 @@
 <template>
   <section>
     <aside class="left-side">
-      <!-- <SideBar /> -->
-      <!-- <RegistrationViewVue/> -->
-      <div class="panel">
-      <va-sidebar
-      :minimized="minimized" 
-      minimizedWidth="64px"
-      width="13rem"
-      >
-        <img :src="wordLogo" alt="movibes logo" width="150" class="sidebar-img">
-        <template v-for="item in sidebarItems" :key="item.title">
-          <va-sidebar-item 
-            :active="item.active" 
-            :class="{bor:item.active}" 
-            class="redbor"
-            @click="itemClicked(item)"
-            >
-            <va-sidebar-item-content>
-              <va-icon :name="item.icon" />
-              <va-sidebar-item-title class="bold">
-                {{ item.title }}
-              </va-sidebar-item-title>
-            </va-sidebar-item-content>
-          </va-sidebar-item>
-        </template>
-
-        <div class="sidebar-card">
-          <div class="sidebar-circle">
-            <va-icon name="quiz"/>
-          </div>
-          <span class="bold"> Play movie quized and earn free tickets</span>
-          <p>50k people are playing now!</p>
-
-          <va-button class="play-btn" color="#3DD2CC66" round>Start playing</va-button>
-        </div>
-
-        <va-sidebar-item @click="logout">
-          <va-sidebar-item-content>
-            <va-icon name="logout"/>
-            <va-sidebar-item-title>Logout</va-sidebar-item-title>
-          </va-sidebar-item-content>
-        </va-sidebar-item>
-
-      </va-sidebar>
-
-      </div>
+      <SideBar />
     </aside>
 
     <main>
@@ -55,12 +11,15 @@
       </div>
 
       <div class="movie-banner-wrapper">
-        <MovieBanner />
+        <MovieBanner :ratio="2.3"/>
       </div>
 
       <div class="movie-card-wrapper">
         <template v-for="movie in movies">
-          <MovieCard  :movieData="movie"/>
+          <MovieCard  
+          :movieData="movie"
+          @click="openDetails(movie)"
+          />
         </template>
         
       </div>
@@ -98,9 +57,9 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia'
  import { useConfigStore } from '../stores/tmdbConfig'
 
-import wordLogo from '../assets/movibes-logo.svg';
 import ListCard from '../components/ListCard.vue';
 import SearchBar from "../components/SearchBar.vue";
+import SideBar from "../components/SideBar.vue";
 import MovieBanner from "../components/MovieBanner.vue";
 import MovieCard from '../components/MovieCard.vue';
 
@@ -109,18 +68,8 @@ const router = useRouter()
 const store = useConfigStore()
 
 //DATA
-const minimized = ref(false)
-
 const { movies } = storeToRefs(store)
 
-const sidebarItems = ref(
-  [
-  {title:"Home", icon:"home", active:false},
-  {title:"Movies", icon:"videocam", active:true},
-  {title:"Tv Shows", icon:"tv", active:false},
-  {title:"Upcoming", icon:"folder", active:false},
-]
-)
 
 const categories = ref([
   {
@@ -181,14 +130,12 @@ watch(movies,(a,b)=>{
   movies.value = a;
 })
 
-const itemClicked = (item)=>{
-  sidebarItems.value.map(x=>x.active=false);
-  item.active =  true
+const openDetails = (movie)=>{
+  store.currentMovie = movie;
+  return router.push({name:"detailsview"});
 }
 
-const logout = ()=>{
-  return router.push({name:"register"})
-}
+
 </script>
 
 <style scoped>
@@ -201,25 +148,23 @@ section{
   display: flex;
   justify-content: space-between;
   align-content: center;
+  position: relative;
 }
  main{
   flex-basis: 53%;
  }
-.bor{
-  border-left:none !important;
-  border-right: solid 4px #3DD2CCBF !important;
-  border-style: inset;
+
+.bold{
+  font-weight:600;
+  font-size: 1.1rem;
+  padding:.5rem 0;
 }
 
-.redbor:hover{
-  border-right: solid 4px #3DD2CCBF!important;
+main{
+  padding: 0;
+  margin-left:13rem;
 }
-.left-side{
-  /* width:100%; */
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
+
 
 .right-side{
   /* width:100%; */
@@ -227,59 +172,6 @@ section{
   flex-direction: row;
   justify-content: flex-start;
 }
-main{
-  padding: 0;
-}
-.panel{
-    padding: 1rem 0 1rem 1rem;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #131A22;
-    /* height:93vh; */
-}
-
-.sidebar-card{
-  background-color: #191919;
-  border-radius: 15px;
-  padding :1rem;
-  position: relative;
-  margin:3rem 1rem 0 1rem;
-  padding-top:3rem;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sidebar-circle{
-  border-radius: 50%;
-  background-color: #3DD2CC66;
-  display: grid;
-  place-items: center;
-  height:60px;
-  width:60px;
-  position: absolute;
-  top:-20%;
-  left:30%;
-  opacity:.6;
-}
-.bold{
-  font-weight:600;
-  font-size: 1.1rem;
-  padding:.5rem 0;
-}
-
-.play-btn{
-  margin-top:1rem;
-  color: white !important;
-}
-
-.sidebar-img{
-  margin-left:1.2rem;
-  margin-bottom:1rem;
-}
-
-
 
 .right-side{
   display: flex;

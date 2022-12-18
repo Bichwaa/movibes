@@ -1,7 +1,7 @@
 <template>
     <div class="banner">
         <va-image 
-            :ratio="2.3"
+            :ratio="ratio"
             :src="picUrl"
             class="rounder"
              />
@@ -29,7 +29,14 @@
  <script setup>
  import { ref, watch, onUpdated} from 'vue';
  import { storeToRefs } from 'pinia'
- import { useConfigStore } from '../stores/tmdbConfig'
+ import { useConfigStore } from '../stores/tmdbConfig';
+
+ const props = defineProps({
+    ratio:{
+        type:Number,
+        default:2.3
+    },
+})
 
 const store = useConfigStore()
 const { movies } = storeToRefs(store)
