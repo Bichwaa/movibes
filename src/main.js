@@ -1,12 +1,15 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createVuestic } from 'vuestic-ui'
+import { createVuestic } from 'vuestic-ui';
+// import * as dotenv from 'dotenv'
 
 import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
 import 'vuestic-ui/css'
+
+// dotenv.config()
 
 const app = createApp(App)
 

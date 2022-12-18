@@ -1,9 +1,7 @@
 <template>
-  <div class="backdrop" v-bind:style="{ 'background-image': 'url(' + trending.title + ')' }">
+  <div class="backdrop" v-bind:style="{ 'background-image': 'url('+ imgPath + ')' }">
     <div class="form-container">
         <RegistrationForm/>
-
-        {{trending.title}}
     </div>
   </div>
 </template>
@@ -11,20 +9,27 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import RegistrationForm from "../components/subcomponents/_RegistrationForm.vue"
-import {useHttpGet} from "../composables/useHttpGet"
+import {useHttpGet, buildURL} from "../composables/useHttpGet"
+import { useConfigStore } from '../stores/tmdbConfig'
 
-const trending = ref()
-const path = ref("")
+const trending = ref({
+  title:"ooooop",
+  backdrop_path:"#"
+})
+const imgPath = ref("#")
 
 const httpGet = useHttpGet({})
-const url = 'https://api.themoviedb.org/3/trending/movie/day?api_key=c55bc7d3a124e923aa524f9b27699385'
+const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_API_KEY}`
 
-onMounted(()=>{
-  httpGet(url).then(res=>{
-    console.log(res.data.results)
-    trending.value = res.data.results[0]
-    console.log(trending.value)
-  })
+const getRandomInt = (max)=> {
+  return Math.floor(Math.random() * max);
+}
+
+onMounted(async()=>{
+  const store = useConfigStore()
+  const data = await httpGet(url)
+  trending.value = data.data.results[getRandomInt(data.data.results.length-1)] //one movie
+  imgPath.value = store.buildBackdropImageUrl(trending.value.backdrop_path)
 })
 
 
@@ -45,5 +50,6 @@ onMounted(()=>{
         height: 100vh;
         background-color: #050A10;
         padding: 2rem;
+        flex-basis: 40%;
     }
 </style>

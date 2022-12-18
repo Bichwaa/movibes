@@ -1,5 +1,5 @@
 <template>
-` <div class="form-wrapper">
+<div class="form-wrapper">
         <p class="form-header">create an account</p>
         <span class="form-sub-header">Let's get started with your 30 day free trial</span>
         <form id="signupForm">
@@ -39,6 +39,10 @@ const toLogin = ()=>{
 </script>
 
 <style scoped>
+    /* .form-wrapper{
+        flex-basis: 40%;
+        max-width: 400px;
+    } */
     .form-header{
         font-size:1.8rem;
         font-weight:600;

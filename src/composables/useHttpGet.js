@@ -1,14 +1,18 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: "https://api.themoviedb.org/3"
-});
+const baseURL= "https://api.themoviedb.org/3";
+const api_key = import.meta.env.VITE_API_KEY
+
+const axiosInstance = axios.create({baseURL});
 
 // Add Your Key Here!!!
 axiosInstance.defaults.headers.common = {
-  "X-API-Key": "c55bc7d3a124e923aa524f9b27699385",
+  "X-API-Key": api_key,
 };
 
+export function buildURL(relURL){
+  return baseURL + relURL + "?api_key="+ api_key
+}
 
 export function useHttpGet(){
   return axiosInstance.get

@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" v-bind:style="{ 'background-image': 'url('+ imgPath + ')' }">
         <!-- <div class="fake"></div> -->
       <div class="form-container">
           <LoginForm/>
@@ -8,7 +8,18 @@
   </template>
   
   <script setup>
-  import LoginForm from "../components/subcomponents/_LoginForm.vue"
+  import { onMounted, ref } from "vue";
+  import LoginForm from "../components/subcomponents/_LoginForm.vue";
+  import { useConfigStore } from '../stores/tmdbConfig'
+
+  const imgPath =  ref("")
+  
+  onMounted(()=>{
+    const store = useConfigStore();
+    imgPath.value = store.imgPath
+  })
+
+  
   </script>
   
   <style scoped>
