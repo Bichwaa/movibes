@@ -95,6 +95,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia'
+ import { useConfigStore } from '../stores/tmdbConfig'
+
 import wordLogo from '../assets/movibes-logo.svg';
 import ListCard from '../components/ListCard.vue';
 import SearchBar from "../components/SearchBar.vue";
@@ -103,11 +106,12 @@ import MovieCard from '../components/MovieCard.vue';
 
 //HELPERS
 const router = useRouter()
+const store = useConfigStore()
 
 //DATA
 const minimized = ref(false)
 
-const movies = ref([1,2,4,3,5,6,6])
+const { movies } = storeToRefs(store)
 
 const sidebarItems = ref(
   [

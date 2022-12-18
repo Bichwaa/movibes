@@ -42,14 +42,13 @@ const { movies } = storeToRefs(store)
 }
 
 watch(movies,(a,b) =>{
-    console.log("we doing something in the movie banner component")
+    // console.log("we doing something in the movie banner component")
     picUrl.value = store
     .buildBackdropImageUrl(a[getRandomInt(store.movies.length-1)]
     .backdrop_path)
 })
 
 onUpdated(()=>{
-    console.log("we doing something in the movie banner component")
     picUrl.value = store
     .buildBackdropImageUrl(store.movies[getRandomInt(store.movies.length-1)]
     .backdrop_path)

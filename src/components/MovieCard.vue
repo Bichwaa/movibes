@@ -2,7 +2,7 @@
     <div class="scaffold">
         <span class="star-rating">
             <va-icon name="star"  size="17px"/>
-            <span class="rating">{{movieData.rating ||7.3}}</span>
+            <span class="rating">{{movieData.vote_average ||7.3}}</span>
         </span>
     </div>
  </template>
