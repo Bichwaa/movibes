@@ -7,7 +7,7 @@
       <va-sidebar
       :minimized="minimized" 
       minimizedWidth="64px"
-      width="15rem"
+      width="13rem"
       >
         <img :src="wordLogo" alt="movibes logo" width="150" class="sidebar-img">
         <template v-for="item in sidebarItems" :key="item.title">
@@ -203,7 +203,7 @@ section{
   align-content: center;
 }
  main{
-  flex-basis: 45%;
+  flex-basis: 53%;
  }
 .bor{
   border-left:none !important;

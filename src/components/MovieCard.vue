@@ -24,7 +24,7 @@ const store = useConfigStore()
  <style scoped>
     .scaffold{
         border-radius:15px;
-        height:200px;
+        height:250px;
         /* width:100px;   */
         margin:1rem .5rem;
         background-color: rgba(75, 37, 78, 0.24);  

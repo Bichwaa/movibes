@@ -65,7 +65,7 @@ onUpdated(()=>{
     .banner-btns{
         position: absolute;
         right:2%;
-        bottom:10%;
+        bottom:3%;
     }
 
     .btn{
