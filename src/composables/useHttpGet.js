@@ -8,7 +8,7 @@ const axiosInstance = axios.create({baseURL});
 // Add Your Key Here!!!
 axiosInstance.defaults.headers.common = {
   "X-API-Key": api_key,
-  "Access-Control-Allow-Origin": "*"
+  "Accept": "*/*"
 };
 
 export function buildURL(relURL){

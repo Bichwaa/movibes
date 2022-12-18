@@ -2,7 +2,7 @@
     <div class="banner">
         <va-image 
             :ratio="2.3"
-            src="https://picsum.photos/1500/500"
+            :src="picUrl"
             class="rounder"
              />
 
@@ -27,7 +27,33 @@
  
  
  <script setup>
- import { ref } from "vue";
+ import { ref, watch, onUpdated} from 'vue';
+ import { storeToRefs } from 'pinia'
+ import { useConfigStore } from '../stores/tmdbConfig'
+
+const store = useConfigStore()
+const { movies } = storeToRefs(store)
+
+ const picUrl = ref("https://picsum.photos/1500/500")
+
+
+ const getRandomInt = (max)=> {
+  return Math.floor(Math.random() * max);
+}
+
+watch(movies,(a,b) =>{
+    console.log("we doing something in the movie banner component")
+    picUrl.value = store
+    .buildBackdropImageUrl(a[getRandomInt(store.movies.length-1)]
+    .backdrop_path)
+})
+
+onUpdated(()=>{
+    console.log("we doing something in the movie banner component")
+    picUrl.value = store
+    .buildBackdropImageUrl(store.movies[getRandomInt(store.movies.length-1)]
+    .backdrop_path)
+})
  
  </script>
  

@@ -7,31 +7,30 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import RegistrationForm from "../components/subcomponents/_RegistrationForm.vue"
-import {useHttpGet, buildURL} from "../composables/useHttpGet"
+import { storeToRefs } from 'pinia'
 import { useConfigStore } from '../stores/tmdbConfig'
+
+const store = useConfigStore()
+const { movies } = storeToRefs(store)
 
 const trending = ref({
   title:"ooooop",
   backdrop_path:"#"
 })
-const imgPath = ref("#")
 
-const httpGet = useHttpGet({})
-const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_API_KEY}`
+const imgPath = ref("#")
 
 const getRandomInt = (max)=> {
   return Math.floor(Math.random() * max);
 }
 
-onMounted(async()=>{
-  const store = useConfigStore()
-  const data = await httpGet(url)
-  trending.value = data.data.results[getRandomInt(data.data.results.length-1)] //one movie
+watch(movies,(a,b) =>{
+  console.log("movies------->",store.movies)
+  trending.value = a[getRandomInt(store.movies.length-1)]
   imgPath.value = store.buildBackdropImageUrl(trending.value.backdrop_path)
 })
-
 
 </script>
 
