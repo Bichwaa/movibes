@@ -34,7 +34,7 @@
 const store = useConfigStore()
 const { movies } = storeToRefs(store)
 
- const picUrl = ref("https://picsum.photos/1500/500")
+ const picUrl = ref("http://image.tmdb.org/t/p/w1280/198vrF8k7mfQ4FjDJsBmdQcaiyq.jpg")
 
 
  const getRandomInt = (max)=> {
