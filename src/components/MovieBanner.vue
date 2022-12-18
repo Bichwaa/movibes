@@ -27,7 +27,7 @@
  
  
  <script setup>
- import { ref, watch, onUpdated} from 'vue';
+ import { ref, watch, onMounted} from 'vue';
  import { storeToRefs } from 'pinia'
  import { useConfigStore } from '../stores/tmdbConfig';
 
@@ -39,7 +39,7 @@
 })
 
 const store = useConfigStore()
-const { movies } = storeToRefs(store)
+const { currentMovie } = storeToRefs(store)
 
  const picUrl = ref("http://image.tmdb.org/t/p/w1280/198vrF8k7mfQ4FjDJsBmdQcaiyq.jpg")
 
@@ -48,17 +48,18 @@ const { movies } = storeToRefs(store)
   return Math.floor(Math.random() * max);
 }
 
-watch(movies,(a,b) =>{
+watch(currentMovie,(a,b) =>{
     // console.log("we doing something in the movie banner component")
     picUrl.value = store
-    .buildBackdropImageUrl(a[getRandomInt(store.movies.length-1)]
-    .backdrop_path)
+    .buildBackdropImageUrl(a.backdrop_path)
 })
 
-onUpdated(()=>{
-    picUrl.value = store
-    .buildBackdropImageUrl(store.movies[getRandomInt(store.movies.length-1)]
-    .backdrop_path)
+
+
+onMounted(()=>{
+    if(store.currentMovie.backdrop_path){
+        picUrl.value = store.buildBackdropImageUrl(store.currentMovie.backdrop_path)
+    }
 })
  
  </script>
