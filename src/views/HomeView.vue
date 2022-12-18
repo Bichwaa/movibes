@@ -93,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia'
  import { useConfigStore } from '../stores/tmdbConfig'
@@ -177,6 +177,10 @@ const services = ref([
 ])
 
 //METHODS
+watch(movies,(a,b)=>{
+  movies.value = a;
+})
+
 const itemClicked = (item)=>{
   sidebarItems.value.map(x=>x.active=false);
   item.active =  true
