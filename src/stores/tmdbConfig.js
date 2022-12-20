@@ -20,6 +20,7 @@ export const useConfigStore = defineStore('configs', () => {
   async function getMovies(){
     const data = await httpGet(moviesUrl);
     movies.value = data.data.results;
+    currentMovie.value = data.data.results[data.data.results.lenght-1]
   }
 
   function buildBackdropImageUrl(path) {

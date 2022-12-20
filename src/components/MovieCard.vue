@@ -28,7 +28,7 @@ const store = useConfigStore()
         /* width:100px;   */
         margin:1rem .5rem;
         background-color: rgba(75, 37, 78, 0.24);  
-        background-size: contain;
+        background-size: cover;
         position: relative;
     }
 

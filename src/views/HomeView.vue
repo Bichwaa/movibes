@@ -15,12 +15,27 @@
       </div>
 
       <div class="movie-card-wrapper">
-        <template v-for="movie in movies">
+        <div class="movielist-bar"><h6>Trending</h6> <span @click="fillTrending" class="see-all">see all</span></div>
+        <div class="movie-group">
+          
+          <template v-for="movie in switchTrending?trending:trendingFull">
           <MovieCard  
           :movieData="movie"
           @click="openDetails(movie)"
           />
         </template>
+        </div>
+
+        <div class="movielist-bar"><h6>Upcoming</h6> <span @click="fillUpcoming" class="see-all">see all</span></div>
+        <div class="movie-group">
+          
+          <template v-for="movie in switchUpcoming?upcoming:upcomingFull">
+          <MovieCard  
+          :movieData="movie"
+          @click="openDetails(movie)"
+          />
+        </template>
+        </div>
         
       </div>
     </main>
@@ -52,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia'
  import { useConfigStore } from '../stores/tmdbConfig'
@@ -69,6 +84,27 @@ const store = useConfigStore()
 
 //DATA
 const { movies } = storeToRefs(store)
+
+const trending = computed(()=>{
+  return movies.value.slice(0,4)
+})
+const trendingFull = computed(()=>{
+  return movies.value.slice(0,10)
+})
+const switchTrending=ref(true)
+
+// const upcoming = computed(()=>{
+//   return movies.value.slice(movies.value.length-4,movies.value.length)
+// })
+
+const upcoming = computed(()=>{
+  return movies.value.slice(movies.value.length-4,movies.value.length)
+})
+const upcomingFull = computed(()=>{
+  return movies.value.slice(movies.value.length-10,movies.value.length)
+})
+const switchUpcoming=ref(true)
+
 
 
 const categories = ref([
@@ -135,6 +171,13 @@ const openDetails = (movie)=>{
   return router.push({name:"detailsview"});
 }
 
+const fillUpcoming = ()=>{
+  switchUpcoming.value = !switchUpcoming.value
+}
+
+const fillTrending = ()=>{
+  switchTrending.value = !switchTrending.value
+}
 
 </script>
 
@@ -237,8 +280,23 @@ main{
 }
 
 .movie-card-wrapper{
-  padding-top:2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-group{
+  /* padding-top:2rem; */
   display: grid;
   grid-template-columns: repeat(4,1fr);
+}
+
+.movielist-bar{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.see-all{
+  cursor: pointer;
 }
 </style>

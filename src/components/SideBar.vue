@@ -37,7 +37,7 @@
         <va-sidebar-item @click="logout">
           <va-sidebar-item-content>
             <va-icon name="logout"/>
-            <va-sidebar-item-title>Logout</va-sidebar-item-title>
+            <va-sidebar-item-title class="logout">Logout</va-sidebar-item-title>
           </va-sidebar-item-content>
         </va-sidebar-item>
 
@@ -157,6 +157,10 @@ const logout = ()=>{
 .sidebar-img{
   margin-left:1.2rem;
   margin-bottom:1rem;
+}
+
+.logout{
+  cursor: pointer;
 }
 
 </style>
