@@ -6,10 +6,10 @@ const api_key = import.meta.env.VITE_API_KEY
 const axiosInstance = axios.create({baseURL});
 
 // Add Your Key Here!!!
-axiosInstance.defaults.headers.common = {
-  "X-API-Key": api_key,
-  "Accept": "*/*"
-};
+// axiosInstance.defaults.headers.common = {
+//   "X-API-Key": api_key,
+//   "Accept": "*/*"
+// };
 
 export function buildURL(relURL){
   return baseURL + relURL + "?api_key="+ api_key
